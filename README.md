@@ -1,5 +1,11 @@
 <p align="center">
-  <img src="assets/fundfirst-logo.png" alt="FundFirst logo" width="220"/>
+  <img src="logo/fundfirst-logo.png" alt="FundFirst logo" width="220"/>
+</p>
+
+<h1 align="center">FundFirst — Explainable Deposit Feasibility Classification</h1>
+
+<p align="center">
+  <b>An explainable machine-learning prototype that classifies first-time buyer deposit-saving scenarios across six South-West London boroughs as Achievable, Stretch or Unfeasible.</b>
 </p>
 
 <h1 align="center">FundFirst — Explainable Deposit Feasibility Classification</h1>
