@@ -8,12 +8,6 @@
   <b>An explainable machine-learning prototype that classifies first-time buyer deposit-saving scenarios across six South-West London boroughs as Achievable, Stretch or Unfeasible.</b>
 </p>
 
-<h1 align="center">FundFirst — Explainable Deposit Feasibility Classification</h1>
-
-<p align="center">
-  <b>An explainable machine-learning prototype that classifies first-time buyer deposit-saving scenarios across six South-West London boroughs as Achievable, Stretch or Unfeasible.</b>
-</p>
-
 ## Quick Links
 
 <p align="center">
@@ -23,6 +17,16 @@
   <a href="data/README.md">Data & Sources</a> •
   <a href="https://github.com/sarahnish/portfolio">Project Portfolio</a>
 </p>
+
+---
+
+## Overview
+
+FundFirst is an academic proof-of-concept that explores whether deposit-saving scenarios for prospective first-time buyers in six South-West London boroughs can be classified as **Achievable**, **Stretch** or **Unfeasible**.
+
+The project combines public housing, earnings, household-saving and interest-rate data; defines a transparent Time–Savings–Market (TSM) labelling rule; compares Logistic Regression with Random Forest; and uses SHAP plus an income-stratified performance audit to examine the selected model.
+
+> FundFirst measures agreement with project-generated feasibility labels. It does not predict mortgage approval, observed home purchases or individual affordability, and it is not financial advice.
 
 ---
 
@@ -42,18 +46,90 @@ FundFirst classifies deposit-saving scenarios into three feasibility tiers:
 - **Stretch** — 73–108 months
 - **Unfeasible** — over 108 months
 
-The project uses four features:
+---
 
-| Feature | Meaning |
+## Key Results
+
+The final dataset contains **72 borough-year observations** for Croydon, Kingston upon Thames, Merton, Richmond upon Thames, Sutton and Wandsworth from **2014–2025**.
+
+Models were evaluated chronologically: 2014–2022 for initial training, 2023 as a validation checkpoint, and 2024–2025 as the held-out test period after refitting on 2014–2023.
+
+<p align="center">
+  <img src="results/held_out_model_performance.png" alt="Held-out model performance" width="800"/>
+</p>
+
+| Model | Held-out Accuracy | Held-out Macro-F1 |
+|---|---:|---:|
+| **Logistic Regression** | **0.833** | **0.778** |
+| Random Forest | 0.583 | 0.444 |
+
+Logistic Regression was selected because it performed better on the held-out period while retaining a simpler, more interpretable model structure.
+
+On the 12-row test set, it correctly classified all Achievable and Stretch observations, but recall for Unfeasible cases was **0.33**.
+
+### Assurance Evidence
+
+FundFirst evaluated four assurance dimensions:
+
+| Area | Outcome |
 |---|---|
-| **Average Price** | Borough-level average house price |
-| **Median Annual Pay** | Full-time median workplace earnings |
-| **Saving Ratio** | UK household saving ratio |
-| **Bank Rate** | Annualised Bank of England Bank Rate |
+| **Explainability** | Supported |
+| **Reproducibility** | Supported |
+| **Performance** | Partial |
+| **Fairness** | Flag raised |
 
-### Key Results
+The income-stratified audit flagged a **33.3 percentage-point accuracy gap** and a **66.7 percentage-point Stretch-precision gap** between borough groups.
 
-**83.3% accuracy** · **77.8% macro-F1** · **10/12 held-out cases correctly classified** · **12/12 predictions explained with SHAP**
+These results are treated as **investigation flags rather than evidence of unfair treatment**, given the small 12-row test set, aggregate borough-level data and use of income as a socioeconomic proxy.
+
+The strongest assurance evidence came from transparency and reproducibility, while fairness and robustness remained open risks.
+
+[View full evaluation results →](results/README.md)
+
+---
+
+## Method
+
+1. Clean and combine four official public datasets at borough-year level.
+2. Calculate a 10% deposit target and assume monthly saving equal to 20% of gross income.
+3. Assign TSM labels:
+   - **Achievable** at ≤72 months
+   - **Stretch** at >72 and ≤108 months
+   - **Unfeasible** at >108 months
+4. Compare standardised Logistic Regression with a 300-tree Random Forest using chronological splits.
+5. Explain held-out predictions with local and global SHAP values.
+6. Audit accuracy and class precision across income-stratified borough groups.
+
+The 72-month Achievable threshold was calibrated using the 2014–2022 development period to retain a usable three-class structure. It is specific to this dataset and is not a universal affordability definition.
+
+---
+
+## Data
+
+| Source | Project Feature |
+|---|---|
+| [UK House Price Index](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/ukhousepriceindexmonthlypricestatistics) | Annual mean borough house price |
+| [Earnings by Workplace, Borough](https://data.london.gov.uk/dataset/earnings-by-workplace-borough-vq846) | Full-time median annual pay |
+| [ONS Household Saving Ratio](https://www.ons.gov.uk/economy/grossdomesticproductgdp/timeseries/dgd8/ukea) | National annual saving-ratio context |
+| [Bank of England Bank Rate history](https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp) | Time-weighted annual Bank Rate |
+
+The suppressed Kingston upon Thames earnings value for 2018 is linearly interpolated between 2017 and 2019.
+
+The resulting dataset contains aggregate statistics only and no personal records.
+
+[View full data notes →](data/README.md)
+
+---
+
+## Limitations
+
+- Labels are generated by a deterministic rule rather than observed buyer outcomes.
+- The dataset is small and covers only six South-West London boroughs.
+- National saving-ratio and Bank Rate features repeat across boroughs within each year.
+- The held-out test contains only 12 observations, so performance and audit gaps are prototype-level evidence.
+- SHAP describes model contributions, not causal effects.
+- Income is used only as a socioeconomic proxy in the fairness analysis.
+- The project is an educational research prototype, not a production decision system.
 
 ---
 
@@ -72,94 +148,31 @@ The project uses four features:
 
 ---
 
-## The Problem
+## Repository Guide
 
-For many prospective first-time buyers, housing affordability information is available as individual numbers — house prices, earnings, deposit targets and interest rates — but these figures do not necessarily provide a clear indication of whether a saving goal is realistically achievable.
+- `notebooks/fundfirst-analysis.ipynb` — executed end-to-end analysis, model evaluation, SHAP explanations and audit
+- `data_raw/` — original public source files used by the notebook
+- `data_clean/` — generated annual and labelled datasets
+- `results/` — model-performance and explainability figures
+- `outputs/` — generated evaluation tables
+- `models/` — selected fitted pipeline and model metadata
+- `model_card.md` — model documentation
+- `requirements.txt` — Python dependencies
 
-FundFirst reframes deposit planning as a **three-class feasibility problem**.
-
-> **Core Research Question:**  
-> Can machine learning reproduce transparent deposit-feasibility tiers on later unseen market years while still providing interpretable and auditable evidence?
-
----
-
-## Overview
-
-FundFirst combines four public economic and housing datasets to create a borough-year dataset covering **2014–2025** across:
-
-- Croydon
-- Kingston upon Thames
-- Merton
-- Richmond upon Thames
-- Sutton
-- Wandsworth
-
-A Transparent Saving Model (TSM) generates project-specific feasibility labels based on a **10% deposit benchmark** and an assumed **20% monthly gross-income saving rate**. 
-
-The resulting labels are then used to compare:
-
-1. **Logistic Regression**
-2. **Random Forest**
-
-using a chronological evaluation rather than a random train/test split.
+To reproduce the analysis, create a Python 3.12 environment, install `requirements.txt`, open the notebook from the repository root and run all cells in order. No GPU is required.
 
 ---
-
-## Approach
-
-FundFirst follows a five-stage pipeline:
-
-1. **Collect** — house prices, earnings, saving ratio and Bank Rate
-2. **Clean & align** — convert each source into borough-year observations
-3. **Create labels** — generate Achievable, Stretch and Unfeasible classes using the TSM
-4. **Evaluate models** — train on earlier years and test on later unseen years
-5. **Explain & audit** — SHAP explanations, class-level metrics and fairness checks
-
-The project uses **2014–2022 for training**, **2023 for validation**, and **2024–2025 as the held-out test period**.
-
----
-
-## Key Findings
-
-<p align="center">
-  <img src="results/held_out_model_performance.png" alt="Held-out model performance" width="800"/>
-</p>
-
-- **Logistic Regression performed best** on the 2024–2025 held-out test set, achieving **83.3% accuracy** and **77.8% macro-F1**.
-- **Random Forest underperformed**, reaching **58.3% accuracy** and **44.4% macro-F1**.
-- The selected model performed strongly on **Achievable** and **Stretch** cases, but **Unfeasible recall was only 0.33**.
-- Global SHAP analysis showed that **Average Price** and **Median Annual Pay** contributed most strongly to model predictions.
-
-[View full evaluation results →](results/README.md)
-
-## Final Design
-
-```text
-Public Data Sources
-        ↓
-Cleaning + Borough-Year Alignment
-        ↓
-Transparent Saving Model
-        ↓
-Achievable / Stretch / Unfeasible Labels
-        ↓
-Chronological Model Evaluation
-        ↓
-Logistic Regression
-        ↓
-SHAP Explanation
-        ↓
-Fairness + Assurance Checks
-        ↓
-Human Interpretation
-```
 
 ## Explore Further
 
-- [Notebook](notebooks/fundfirst-analysis.ipynb)
-- [Case Study](docs/case-study.md)
-- [Results](results/)
-- [Data Notes](data/README.md)
+| Resource | What You'll Find |
+|---|---|
+| **[Full Case Study](docs/case-study.md)** | Problem framing, methodology, evaluation, assurance and limitations |
+| **[Modelling Notebook](notebooks/fundfirst-analysis.ipynb)** | Complete data preparation, modelling, SHAP and audit workflow |
+| **[Evaluation Results](results/README.md)** | Confusion matrices, SHAP results and supporting figures |
+| **[Data Notes](data/README.md)** | Data sources, transformations and feature definitions |
+
+---
 
 ## Disclaimer
 
