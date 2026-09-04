@@ -14,7 +14,7 @@
   <a href="case-study/README.md">Full Case Study</a> •
   <a href="notebook/fundfirst-analysis.ipynb">Modelling Notebook</a> •
   <a href="results/README.md">Evaluation Results</a> •
-    <a href="https://fundfirst-dream-planner.lovable.app">Live Application</a> •
+    <a href="https://fundfirst-dream-planner.lovable.app">Live Application</a>
 </p>
 
 ---
