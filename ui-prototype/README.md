@@ -3,8 +3,8 @@
 <p align="center">
   <a href="https://fundfirst-dream-planner.lovable.app"><b>Launch FundFirst</b></a> •
   <a href="https://github.com/sarahnish/FundFirst_backend"><b>View FastAPI Backend</b></a> •
-  <a href="https://github.com/sarahnish/fund-first/blob/main/UI%20Prototype/homepage.png"><b>Homepage Screenshot</b></a> •
-  <a href="https://github.com/sarahnish/fund-first/blob/main/UI%20Prototype/results.png"><b>Results Screenshot</b></a>
+  <a href="https://github.com/sarahnish/fund-first/blob/main/ui-prototype/homepage.png"><b>Homepage Screenshot</b></a> •
+  <a href="https://github.com/sarahnish/fund-first/blob/main/ui-prototype/results.png"><b>Results Screenshot</b></a>
 </p>
 
 ## Deployment Architecture
