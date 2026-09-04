@@ -11,11 +11,10 @@
 ## Quick Links
 
 <p align="center">
-  <a href="https://fundfirst-dream-planner.lovable.app">Live Application</a> •
-  <a href="https://github.com/sarahnish/FundFirst_backend">FastAPI Backend</a> •
   <a href="case-study/README.md">Full Case Study</a> •
   <a href="notebook/fundfirst-analysis.ipynb">Modelling Notebook</a> •
   <a href="results/README.md">Evaluation Results</a> •
+    <a href="https://fundfirst-dream-planner.lovable.app">Live Application</a> •
   <a href="https://github.com/sarahnish/portfolio">Project Portfolio</a>
 </p>
 
@@ -23,7 +22,7 @@
 
 ## Overview
 
-FundFirst is an academic proof-of-concept that explores whether deposit-saving scenarios for prospective first-time buyers in six South-West London boroughs can be classified as **Achievable**, **Stretch** or **Unfeasible**.
+FundFirst explores whether deposit-saving scenarios for prospective first-time buyers in six South-West London boroughs can be classified as **Achievable**, **Stretch** or **Unfeasible**.
 
 The project combines public housing, earnings, household-saving and interest-rate data; defines a transparent **Time–Savings–Market (TSM)** labelling rule; compares Logistic Regression with Random Forest; and uses SHAP plus an income-stratified performance audit to examine the selected model.
 
@@ -274,24 +273,6 @@ fund-first/
 ```
 
 To reproduce the analysis, create a Python 3.12 environment, install `requirements.txt`, open the notebook from the repository root and run all cells in order. No GPU is required.
-
----
-
-## Explore Further
-
-| Resource | What You'll Find |
-|---|---|
-| **[Launch FundFirst](https://fundfirst-dream-planner.lovable.app)** | Live frontend connected to the deployed inference API |
-| **[FastAPI Backend](https://github.com/sarahnish/FundFirst_backend)** | Model-serving API and deployment configuration |
-| **[Full Case Study](case-study/README.md)** | Problem framing, methodology, evaluation, assurance and limitations |
-| **[Modelling Notebook](notebook/fundfirst-analysis.ipynb)** | Complete data preparation, modelling, SHAP and audit workflow |
-| **[Evaluation Results](results/README.md)** | Confusion matrices, SHAP results and supporting figures |
-| **[Raw Data Notes](data_raw/README.md)** | Original public data sources and provenance |
-| **[Clean Data Notes](data-clean/README.md)** | Processed datasets and feature preparation |
-| **[Generated Outputs](outputs/README.md)** | Machine-readable evaluation and audit outputs |
-| **[Model Card](model_card.md)** | Intended use, limitations and responsible-use documentation |
-
----
 
 ## Disclaimer
 
