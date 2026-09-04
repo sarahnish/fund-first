@@ -1,0 +1,7 @@
+IncomeGroup,Class,Precision,PredictedCount
+Higher Income,Achievable,1.0,2
+Higher Income,Stretch,0.3333333333333333,3
+Higher Income,Unfeasible,1.0,1
+Lower Income,Achievable,1.0,2
+Lower Income,Stretch,1.0,4
+Lower Income,Unfeasible,,0

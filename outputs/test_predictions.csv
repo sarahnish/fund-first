@@ -1,0 +1,13 @@
+Borough,Year,FeasibilityTier,LogisticPrediction,RandomForestPrediction
+Croydon,2024,Achievable,Achievable,Achievable
+Croydon,2025,Achievable,Achievable,Achievable
+Kingston upon Thames,2024,Stretch,Stretch,Stretch
+Kingston upon Thames,2025,Stretch,Stretch,Stretch
+Merton,2024,Stretch,Stretch,Stretch
+Merton,2025,Stretch,Stretch,Stretch
+Richmond upon Thames,2024,Unfeasible,Stretch,Stretch
+Richmond upon Thames,2025,Unfeasible,Unfeasible,Stretch
+Sutton,2024,Achievable,Achievable,Stretch
+Sutton,2025,Achievable,Achievable,Stretch
+Wandsworth,2024,Unfeasible,Stretch,Stretch
+Wandsworth,2025,Stretch,Stretch,Stretch

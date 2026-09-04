@@ -1,0 +1,4 @@
+Class,Higher Income,Lower Income,PrecisionGap,GapPercentagePoints,FlagOver10pp
+Achievable,1.0,1.0,0.0,0.0,False
+Stretch,0.3333333333333333,1.0,0.6666666666666667,66.66666666666667,True
+Unfeasible,1.0,,,,False
