@@ -24,7 +24,7 @@
 
 FundFirst explores whether deposit-saving scenarios for prospective first-time buyers in six South-West London boroughs can be classified as **Achievable**, **Stretch** or **Unfeasible**.
 
-The project combines public housing, earnings, household-saving and interest-rate data; defines a transparent **Time–Savings–Market (TSM)** labelling rule; compares Logistic Regression with Random Forest; and uses SHAP plus an income-stratified performance audit to examine the selected model.
+The project combines public housing, earnings, household-saving and interest-rate data; defines a Transparent Saving Model (TSM)** labelling rule; compares Logistic Regression with Random Forest; and uses SHAP plus an income-stratified performance audit to examine the selected model.
 
 The final Logistic Regression pipeline is served through a FastAPI backend and connected to a Lovable frontend for live predictions.
 
