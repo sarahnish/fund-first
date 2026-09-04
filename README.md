@@ -1,6 +1,6 @@
 <p align="center">
   <img src="logo/logo.png" alt="FundFirst logo" width="220"/>
-</p>
+</p> 
 
 <h1 align="center">FundFirst — Explainable Deposit Feasibility Classification</h1>
 
