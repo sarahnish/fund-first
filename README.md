@@ -1,6 +1,6 @@
 <p align="center">
   <img src="logo/logo.png" alt="FundFirst logo" width="220"/>
-</p> 
+</p>
 
 <h1 align="center">FundFirst — Explainable Deposit Feasibility Classification</h1>
 
@@ -11,10 +11,11 @@
 ## Quick Links
 
 <p align="center">
-  <a href="docs/case-study.md">Full Case Study</a> •
-  <a href="notebooks/fundfirst-analysis.ipynb">Modelling Notebook</a> •
+  <a href="https://fundfirst-dream-planner.lovable.app">Live Application</a> •
+  <a href="https://github.com/sarahnish/FundFirst_backend">FastAPI Backend</a> •
+  <a href="case-study/README.md">Full Case Study</a> •
+  <a href="notebook/fundfirst-analysis.ipynb">Modelling Notebook</a> •
   <a href="results/README.md">Evaluation Results</a> •
-  <a href="data/README.md">Data & Sources</a> •
   <a href="https://github.com/sarahnish/portfolio">Project Portfolio</a>
 </p>
 
@@ -24,7 +25,9 @@
 
 FundFirst is an academic proof-of-concept that explores whether deposit-saving scenarios for prospective first-time buyers in six South-West London boroughs can be classified as **Achievable**, **Stretch** or **Unfeasible**.
 
-The project combines public housing, earnings, household-saving and interest-rate data; defines a transparent Time–Savings–Market (TSM) labelling rule; compares Logistic Regression with Random Forest; and uses SHAP plus an income-stratified performance audit to examine the selected model.
+The project combines public housing, earnings, household-saving and interest-rate data; defines a transparent **Time–Savings–Market (TSM)** labelling rule; compares Logistic Regression with Random Forest; and uses SHAP plus an income-stratified performance audit to examine the selected model.
+
+The final Logistic Regression pipeline is served through a FastAPI backend and connected to a Lovable frontend for live predictions.
 
 > FundFirst measures agreement with project-generated feasibility labels. It does not predict mortgage approval, observed home purchases or individual affordability, and it is not financial advice.
 
@@ -36,12 +39,18 @@ The project combines public housing, earnings, household-saving and interest-rat
 |---|---|---|---|---:|
 | **72 borough-year observations** | **6 South-West London boroughs** | **2014–2025** | **Logistic Regression · Random Forest** | **83.3%** |
 
+---
+
 ## Live Application
 
 FundFirst is deployed as an end-to-end machine-learning application with a separate frontend and Python inference API.
 
-- [Launch FundFirst](https://fundfirst-dream-planner.lovable.app)
-- [View the FastAPI backend](https://github.com/sarahnish/FundFirst_backend)
+<p align="center">
+  <a href="https://fundfirst-dream-planner.lovable.app"><b>Launch FundFirst</b></a> •
+  <a href="https://github.com/sarahnish/FundFirst_backend"><b>View FastAPI Backend</b></a> •
+  <a href="ui-prototype/homepage.png"><b>Homepage Screenshot</b></a> •
+  <a href="ui-prototype/results.png"><b>Results Screenshot</b></a>
+</p>
 
 ### Deployment Architecture
 
@@ -64,7 +73,13 @@ JSON response
 Lovable displays the result
 ```
 
-### How It Works
+The frontend handles the user experience, while preprocessing and model inference remain in the Python backend.
+
+The Lovable frontend does not recreate the trained model, scaling logic or prediction rules. The FastAPI service remains the source of truth for live predictions.
+
+---
+
+## How It Works
 
 **Public housing + economic data → transparent feasibility labels → chronological ML evaluation → SHAP explanations → fairness checks**
 
@@ -80,7 +95,12 @@ FundFirst classifies deposit-saving scenarios into three feasibility tiers:
 
 The final dataset contains **72 borough-year observations** for Croydon, Kingston upon Thames, Merton, Richmond upon Thames, Sutton and Wandsworth from **2014–2025**.
 
-Models were evaluated chronologically: 2014–2022 for initial training, 2023 as a validation checkpoint, and 2024–2025 as the held-out test period after refitting on 2014–2023.
+Models were evaluated chronologically:
+
+- **2014–2022** — initial training
+- **2023** — validation checkpoint
+- **2014–2023** — final model refit
+- **2024–2025** — held-out test period
 
 <p align="center">
   <img src="results/held_out_model_performance.png" alt="Held-out model performance" width="800"/>
@@ -91,7 +111,7 @@ Models were evaluated chronologically: 2014–2022 for initial training, 2023 as
 | **Logistic Regression** | **0.833** | **0.778** |
 | Random Forest | 0.583 | 0.444 |
 
-Logistic Regression was selected because it performed better on the held-out period while retaining a simpler, more interpretable model structure.
+Logistic Regression was selected because it performed better on the held-out period while retaining a simpler and more interpretable model structure.
 
 On the 12-row test set, it correctly classified all Achievable and Stretch observations, but recall for Unfeasible cases was **0.33**.
 
@@ -145,7 +165,10 @@ The suppressed Kingston upon Thames earnings value for 2018 is linearly interpol
 
 The resulting dataset contains aggregate statistics only and no personal records.
 
-[View full data notes →](data/README.md)
+### Data Documentation
+
+- [Raw Data Notes →](data_raw/README.md)
+- [Clean Data Notes →](data-clean/README.md)
 
 ---
 
@@ -174,18 +197,81 @@ The resulting dataset contains aggregate statistics only and no personal records
 | **Frontend** | Lovable |
 | **Deployment** | Render |
 | **Development** | Jupyter, Git, GitHub |
+
 ---
 
 ## Repository Guide
 
-- `notebooks/fundfirst-analysis.ipynb` — executed end-to-end analysis, model evaluation, SHAP explanations and audit
-- `data_raw/` — original public source files used by the notebook
-- `data_clean/` — generated annual and labelled datasets
-- `results/` — model-performance and explainability figures
-- `outputs/` — generated evaluation tables
-- `models/` — selected fitted pipeline and model metadata
-- `model_card.md` — model documentation
-- `requirements.txt` — Python dependencies
+| Resource | Description |
+|---|---|
+| [**Full Case Study**](case-study/README.md) | Problem framing, methodology, evaluation, assurance and limitations |
+| [**Modelling Notebook**](notebook/fundfirst-analysis.ipynb) | Executed end-to-end analysis, model evaluation, SHAP explanations and audit |
+| [**Notebook Notes**](notebook/README.md) | Modelling workflow and chronological evaluation design |
+| [**Raw Data**](data_raw/README.md) | Original public source files used by the modelling workflow |
+| [**Clean Data**](data-clean/README.md) | Processed annual and labelled datasets |
+| [**Generated Outputs**](outputs/README.md) | Predictions, evaluation metrics and income-stratified audit outputs |
+| [**Evaluation Results**](results/README.md) | Model-performance, confusion-matrix, SHAP and audit figures |
+| [**UI Prototype**](ui-prototype/README.md) | Interface screenshots and frontend notes |
+| [**Model Card**](model_card.md) | Model purpose, intended use, limitations and responsible-use documentation |
+| [**FastAPI Backend**](https://github.com/sarahnish/FundFirst_backend) | Python inference API used by the live application |
+| [**Live Application**](https://fundfirst-dream-planner.lovable.app) | Lovable frontend connected to the deployed inference service |
+
+### Repository Structure
+
+```text
+fund-first/
+├── case-study/
+│   └── README.md
+│
+├── data-clean/
+│   ├── README.md
+│   ├── base_rate_annual_clean.csv
+│   ├── earnings_annual_clean.csv
+│   ├── fundfirst_features_clean.csv
+│   ├── fundfirst_labelled_data.csv
+│   ├── hpi_annual_clean.csv
+│   └── saving_ratio_annual_clean.csv
+│
+├── data_raw/
+│   ├── README.md
+│   ├── earnings.xls
+│   ├── hpi.csv
+│   ├── rate.csv
+│   └── saving_ratio.csv
+│
+├── logo/
+│   └── logo.png
+│
+├── notebook/
+│   ├── README.md
+│   └── fundfirst-analysis.ipynb
+│
+├── outputs/
+│   ├── README.md
+│   ├── bias_audit_accuracy.csv
+│   ├── bias_audit_precision.csv
+│   ├── bias_audit_precision_gaps.csv
+│   ├── model_test_results.csv
+│   └── test_predictions.csv
+│
+├── results/
+│   ├── README.md
+│   ├── held_out_model_performance.png
+│   ├── lr_test_confusion_matrix.png
+│   ├── rf_test_confusion_matrix.png
+│   ├── shap_global_feature_contribution.png
+│   └── shap_local_richmond_upon_thames_2025.png
+│
+├── ui-prototype/
+│   ├── README.md
+│   ├── homepage.png
+│   └── results.png
+│
+├── .gitignore
+├── README.md
+├── model_card.md
+└── requirements.txt
+```
 
 To reproduce the analysis, create a Python 3.12 environment, install `requirements.txt`, open the notebook from the repository root and run all cells in order. No GPU is required.
 
@@ -195,10 +281,15 @@ To reproduce the analysis, create a Python 3.12 environment, install `requiremen
 
 | Resource | What You'll Find |
 |---|---|
-| **[Full Case Study](docs/case-study.md)** | Problem framing, methodology, evaluation, assurance and limitations |
-| **[Modelling Notebook](notebooks/fundfirst-analysis.ipynb)** | Complete data preparation, modelling, SHAP and audit workflow |
+| **[Launch FundFirst](https://fundfirst-dream-planner.lovable.app)** | Live frontend connected to the deployed inference API |
+| **[FastAPI Backend](https://github.com/sarahnish/FundFirst_backend)** | Model-serving API and deployment configuration |
+| **[Full Case Study](case-study/README.md)** | Problem framing, methodology, evaluation, assurance and limitations |
+| **[Modelling Notebook](notebook/fundfirst-analysis.ipynb)** | Complete data preparation, modelling, SHAP and audit workflow |
 | **[Evaluation Results](results/README.md)** | Confusion matrices, SHAP results and supporting figures |
-| **[Data Notes](data/README.md)** | Data sources, transformations and feature definitions |
+| **[Raw Data Notes](data_raw/README.md)** | Original public data sources and provenance |
+| **[Clean Data Notes](data-clean/README.md)** | Processed datasets and feature preparation |
+| **[Generated Outputs](outputs/README.md)** | Machine-readable evaluation and audit outputs |
+| **[Model Card](model_card.md)** | Intended use, limitations and responsible-use documentation |
 
 ---
 
