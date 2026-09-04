@@ -36,6 +36,34 @@ The project combines public housing, earnings, household-saving and interest-rat
 |---|---|---|---|---:|
 | **72 borough-year observations** | **6 South-West London boroughs** | **2014–2025** | **Logistic Regression · Random Forest** | **83.3%** |
 
+## Live Application
+
+FundFirst is deployed as an end-to-end machine-learning application with a separate frontend and Python inference API.
+
+- [Launch FundFirst](https://fundfirst-dream-planner.lovable.app)
+- [View the FastAPI backend](https://github.com/sarahnish/FundFirst_backend)
+
+### Deployment Architecture
+
+```text
+User enters a scenario
+        ↓
+Lovable frontend
+        ↓
+HTTPS POST /predict
+        ↓
+FastAPI backend
+        ↓
+Saved scikit-learn pipeline
+StandardScaler + Logistic Regression
+        ↓
+Prediction + class probabilities
+        ↓
+JSON response
+        ↓
+Lovable displays the result
+```
+
 ### How It Works
 
 **Public housing + economic data → transparent feasibility labels → chronological ML evaluation → SHAP explanations → fairness checks**
