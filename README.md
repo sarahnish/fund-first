@@ -141,11 +141,11 @@ The resulting dataset contains aggregate statistics only and no personal records
 | **Machine Learning** | scikit-learn |
 | **Data Processing** | pandas, NumPy |
 | **Explainability** | SHAP |
-| **Evaluation** | scikit-learn metrics |
-| **Visualisation** | Matplotlib |
+| **API** | FastAPI, Pydantic, Uvicorn |
 | **Model Persistence** | joblib |
+| **Frontend** | Lovable |
+| **Deployment** | Render |
 | **Development** | Jupyter, Git, GitHub |
-
 ---
 
 ## Repository Guide
